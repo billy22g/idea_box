@@ -2,8 +2,8 @@ gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'rack/test'
-require './lib/idea_store'
-require './lib/idea'
+require './lib/idea_box/idea_store'
+require './lib/idea_box/idea'
 require 'yaml/store'
 
 class IdeaStoreTest < Minitest::Test

@@ -1,7 +1,7 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/idea.rb'
+require './lib/idea_box/idea.rb'
 
 class IdeaTest < Minitest::Test
   def test_basic_idea

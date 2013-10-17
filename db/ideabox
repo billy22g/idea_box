@@ -1,2 +1,5 @@
 ---
-ideas: []
+ideas:
+- title: hi
+  description: whatever
+  votes: 4

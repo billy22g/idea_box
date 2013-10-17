@@ -1,5 +1,5 @@
 require 'yaml/store'
-require './lib/idea'
+require './lib/idea_box/idea'
 
 class IdeaStore 
 
@@ -21,8 +21,8 @@ class IdeaStore
     end
 
     def all
-      idea_data.collect do |attributes|
-        Idea.new(attributes)
+      idea_data.each_with_index.collect do |attributes, index|
+        Idea.new(attributes.merge("id" => index))
       end
     end
 

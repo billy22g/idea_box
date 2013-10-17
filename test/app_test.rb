@@ -1,7 +1,7 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/app'
+require './lib/app/app'
 require 'rack/test'
 
 class AppTest < Minitest::Test
@@ -17,6 +17,6 @@ class AppTest < Minitest::Test
 
   def test_hello
     get '/'
-    assert_equal "Hello, world", last_response.body
+    assert (last_response.body =~ /Your Idea:/)
   end
 end

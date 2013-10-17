@@ -1,15 +1,11 @@
 require 'sinatra/base'
-require './lib/idea_store'
-require './lib/idea'
+require './lib/idea_box/idea_store'
+require './lib/idea_box/idea'
 
 class IdeaBoxApp < Sinatra::Base
 
   set :method_override, true
   set :root, 'lib/app'
-
-  configure :development do
-    register Sinatra::Reloader
-  end
 
   get '/' do
     erb :index, :locals => {ideas: IdeaStore.all.sort,
