@@ -18,6 +18,7 @@ class IdeaBoxApp < Sinatra::Base
   end
 
   delete '/:id' do |id|
+    puts "DELETE id: #{id}"
     IdeaStore.delete(id.to_i)
     redirect '/'
   end
@@ -37,6 +38,11 @@ class IdeaBoxApp < Sinatra::Base
     idea.like!
     IdeaStore.update(id.to_i, idea.data_hash)
     redirect '/'
+  end
+
+  get '/search' do
+    matching_ideas = IdeaStore.search(params[:search])
+    erb :search, locals: {matching_ideas: matching_ideas}
   end
 
   not_found do

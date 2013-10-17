@@ -96,4 +96,13 @@ class IdeaStoreTest < Minitest::Test
     updated_idea = IdeaStore.find(1)
     assert_equal "Bonjour", updated_idea.title
   end
+
+  def test_it_searches_for_ideas_by_tag
+    IdeaStore.create("title" => "Howdy", "tags" => "1, 2, blue heaven")
+    IdeaStore.create("title" => "Heyo", "tags" => "1, five, blue heaven")
+    IdeaStore.create("title" => "Howdy", "tags" => "five, seven")
+    result = IdeaStore.search("blue heaven")
+    assert_equal 2, result.count
+    assert_equal "Heyo", result.last.title
+  end
 end

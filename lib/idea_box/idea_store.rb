@@ -55,5 +55,16 @@ class IdeaStore
         db["ideas"][id] = updated
       end
     end
+
+    def search(search_term)
+      IdeaStore.all.select do |idea|
+        split_tags = idea.tags.split(", ")
+        split_tags.any? do |tag|
+          tag == search_term
+        end
+      end      
+    end
+
+    
   end
 end
