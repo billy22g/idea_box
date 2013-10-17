@@ -1,33 +1,59 @@
 require 'yaml/store'
 require './lib/idea'
 
-class IdeaStore
-    
+class IdeaStore 
 
-    def self.database
+  class << self    
+
+    def database
       @database ||= YAML::Store.new "db/ideabox"
     end
 
-    def self.create(attributes)
+    def create(attributes)
       database.transaction do |db|
         db["ideas"] ||= []
         db["ideas"].push(attributes)
       end
     end
 
-    def self.idea_data
+    def idea_data
       database.transaction {|db| db["ideas"] || []}
     end
 
-    def self.all
-      ideas = []
-      idea_data.each do |attributes|
-        ideas.push(Idea.new(attributes))
+    def all
+      idea_data.collect do |attributes|
+        Idea.new(attributes)
       end
     end
 
-    def self.destroy_database
-      @database = nil
-      File.delete('./db/ideabox')
+    def destroy_database
+      database.transaction do |db|
+        db["ideas"] = []
+      end
     end
+
+    def delete(position)
+      database.transaction do |db|
+        db["ideas"].delete_at(position)
+      end
+    end
+
+    def idea_data_for_id(id)
+      database.transaction do |db|
+        db["ideas"].at(id)
+      end
+    end
+
+    def find(id)      
+      Idea.new(idea_data_for_id(id).merge("id" => id))
+    end
+
+    def update(id, edits)
+      idea = IdeaStore.find(id)
+      updated = idea.data_hash.merge(edits)
+      database.transaction do |db| 
+        db["ideas"][id] = updated
+      end
+    end
+  end
 end

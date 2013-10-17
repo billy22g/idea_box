@@ -33,11 +33,13 @@ class IdeaTest < Minitest::Test
     assert_equal 0, idea.votes
   end
 
-  def test_like_method_raises_the_vote_count
+  def test_like_method_raises_the_vote_count_by_one_each_time
     idea = Idea.new
     assert_equal 0, idea.votes
     idea.like!
     assert_equal 1, idea.votes
+    idea.like!
+    assert_equal 2, idea.votes
   end
 
   def test_spaceship_operator_compares_votes

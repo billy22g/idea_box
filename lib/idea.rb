@@ -5,7 +5,7 @@ class Idea
     @title = attributes["title"]
     @description = attributes["description"]
     @id = attributes["id"]
-    @votes = 0
+    @votes = attributes["votes"] || 0
   end
 
   def data_hash
