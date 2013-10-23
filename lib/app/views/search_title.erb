@@ -1,0 +1,18 @@
+<h1>To Do List!</h1>
+    <h2>Matching Items:</h2>
+    <ol>
+      <% matching_ideas.each do |idea| %>
+        <li>
+          <b>Title: </b><%= idea.title %><br>
+          <b>Description: </b><%= idea.description %><br>
+          <b>Tags: </b><%= idea.tags %><br>
+          <form action='/<%= idea.id %>/like' method='POST' style="display: inline">
+            <input type="submit" value="Like!"/>
+          <a href="/<%= idea.id %>/edit">Edit</a>
+          <form action="/<%= idea.id %>" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="delete"/>
+          </form>
+        </li>
+      <% end %>
+    </ol>

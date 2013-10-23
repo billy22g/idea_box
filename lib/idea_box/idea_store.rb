@@ -56,15 +56,41 @@ class IdeaStore
       end
     end
 
-    def search(search_term)
+    # def clean_input
+    #   IdeaStore.all.collect do |idea|
+    #     idea.tags.gsub(/[^\w\s]/,"").split(" ")
+    #   end
+    # end
+
+    def search_tags(search_term)
       IdeaStore.all.select do |idea|
         split_tags = idea.tags.split(", ")
         split_tags.any? do |tag|
-          tag == search_term
-        end
-      end      
+          tag.downcase == search_term.downcase
+        end   
+      end  
     end
 
-    
+    def search_description(keyword)
+      IdeaStore.all.select do |idea|
+        split_words = idea.description.split(" ")
+        split_words.any? do |word|
+          word.downcase == keyword.downcase
+        end
+      end
+    end
+
+    def search_title(keyword)
+      IdeaStore.all.select do |idea|
+        idea.title.downcase == keyword.downcase
+      end
+    end
+
+    def tags
+      tags =  IdeaStore.all.collect do |idea|
+                idea.tags.split(", ")
+              end
+      tags.uniq.join(', ')
+    end
   end
 end

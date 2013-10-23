@@ -13,7 +13,14 @@ class IdeaBoxApp < Sinatra::Base
   end
 
   post '/' do
-    IdeaStore.create(params[:idea])
+    if params['upload']
+      File.open("db/uploads/" + params['uploads'][:filename], "w") do |f|
+        f.write(params['uploads'][:tempfile].read)
+      end
+      IdeaStore.create(params[:idea].merge('uploads' => params['uploads'][:filename]))
+    else
+      IdeaStore.create(params[:idea])
+    end
     redirect '/'
   end
 
@@ -40,9 +47,19 @@ class IdeaBoxApp < Sinatra::Base
     redirect '/'
   end
 
-  get '/search' do
-    matching_ideas = IdeaStore.search(params[:search])
-    erb :search, locals: {matching_ideas: matching_ideas}
+  get '/search_tags' do
+    matching_ideas = IdeaStore.search_tags(params[:search_tags])
+    erb :search_tags, locals: {matching_ideas: matching_ideas}
+  end
+
+  get '/search_description' do
+    matching_ideas = IdeaStore.search_description(params[:search_description])
+    erb :search_description, locals: {matching_ideas: matching_ideas}
+  end
+
+  get '/search_title' do
+    matching_ideas = IdeaStore.search_title(params[:search_title])
+    erb :search_title, locals: {matching_ideas: matching_ideas}
   end
 
   not_found do

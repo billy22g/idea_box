@@ -1,12 +1,13 @@
-    <h1>IdeaBox</h1>
+    <h1>To Do List!</h1>
     <%= erb :form, locals: {idea: idea}%>
-    <h2>Existing Ideas:</h2>
+    <h2>Existing Items:</h2>
     <ol>
       <% ideas.each_with_index do |idea, id| %>
         <li>
-          <b>Title: </b><%= idea.title %><br>
-          <b>Description: </b><%= idea.description %><br>
-          <b>Tags: </b><%= idea.tags %><br>
+          <b>Title: </b><%= idea.title %><br/>
+          <b>Description: </b><%= idea.description %><br/>
+          <b>Tags: </b><%= idea.tags %><br/>
+          <b>Files: </b><a href="../db/uploads/<%= "#{}" %> "><%= idea.uploads %></a><br/>
           <form action='/<%= idea.id %>/like' method='POST' style="display: inline">
             <input type="submit" value="Like!"/>
           <a href="/<%= idea.id %>/edit">Edit</a>

@@ -101,8 +101,27 @@ class IdeaStoreTest < Minitest::Test
     IdeaStore.create("title" => "Howdy", "tags" => "1, 2, blue heaven")
     IdeaStore.create("title" => "Heyo", "tags" => "1, five, blue heaven")
     IdeaStore.create("title" => "Howdy", "tags" => "five, seven")
-    result = IdeaStore.search("blue heaven")
+    result = IdeaStore.search_tags("Blue heaven")
     assert_equal 2, result.count
     assert_equal "Heyo", result.last.title
   end
+
+  def test_it_searches_for_ideas_by_description
+    IdeaStore.create("description" => "Howdy friends and family", "tags" => "1, 2, blue heaven")
+    IdeaStore.create("description" => "Heyo", "tags" => "1, five, blue heaven")
+    IdeaStore.create("description" => "Howdy besties", "tags" => "five, seven")
+    result = IdeaStore.search_description("besties")
+    assert_equal 1, result.count
+    assert_equal "five, seven", result.last.tags
+  end
+
+  def test_it_searches_for_ideas_by_title
+    IdeaStore.create("title" => "Howdy", "tags" => "1, 2, blue heaven")
+    IdeaStore.create("title" => "Heyo", "tags" => "1, five, blue heaven")
+    IdeaStore.create("title" => "Howdy", "tags" => "five, seven")
+    result = IdeaStore.search_title("howdY")
+    assert_equal 2, result.count
+    assert_equal "1, 2, blue heaven", result.first.tags
+  end
+
 end

@@ -14,9 +14,4 @@ class AppTest < Minitest::Test
   def test_it_exists
     assert IdeaBoxApp
   end
-
-  def test_hello
-    get '/'
-    assert (last_response.body =~ /Your Idea:/)
-  end
 end

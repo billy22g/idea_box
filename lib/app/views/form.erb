@@ -1,21 +1,43 @@
-      <form action='/<%= idea.id %>' method='POST'>
+      <form action='/<%= idea.id %>' method='POST' enctype='multipart/form-data'>
         <h2>
           <% if idea.id %>
-            Edit your Idea:
+            Edit an Item:
           <% else %>
-            Your Idea:
+            New Item:
           <% end %>
         </h2>
         <% if idea.id %>
           <input type="hidden" name="_method" value="PUT" />
         <% end %>
-        <h4>Title:</h4><input type='text' name='idea[title]' value="<%= idea.title %>"/><br/>
-        <h4>Description:</h4><textarea name='idea[description]'><%= idea.description %></textarea>
-        <h4>Tags:</h4><input name='idea[tags]'><%= idea.tags %><br/>
-        <input type='submit'/><br>
+        <h4><input type='text' name='idea[title]' value="<%= idea.title %>"/>Title<br/>
+        <textarea name='idea[description]'><%= idea.description %></textarea>Description<br/>
+        <input name='idea[tags]'><%= idea.tags %>Tags</h4>
+      
+        <select name="idea[group]">
+          <option value="Misc">Miscellaneous</option>
+          <option value="Travel">Travel</option>
+          <option value="Leisure">Leisure</option>
+          <option value="Exercise">Exercise</option>
+          <option value="Work">Work</option>
+        </select>   
+
+        <input type='file' accept="audio/*|video/*|image/*" name='uploads' style="display: inline"/><br/>
+        <input type='submit' style="display: inline"/><br/>        
+        <br/>
       </form>
-      <form action='/search' method='GET' style="display: inline">
-        <input type='text' name='search'/>
-        <input type="submit" value="Search by tags!"/>        
+      <form action='/search_title' method='GET' style="display: inline">
+        <input type='text' name='search_title'/>
+        <input type="submit" value="Search by Title!"/>        
       </form>
+      <br/>
+      <form action='/search_description' method='GET' style="display: inline">
+        <input type='text' name='search_description'/>
+        <input type="submit" value="Search by Description!"/>
+      </form>
+      <br/>
+      <form action='/search_tags' method='GET' style="display: inline">
+        <input type='text' name='search_tags'/>
+        <input type="submit" value="Search by Tags!"/>
+      </form>
+      
       

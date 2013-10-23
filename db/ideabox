@@ -1,2 +1,11 @@
 ---
-ideas: []
+ideas:
+- title: hi
+  description: hi
+  tags: hi
+  group: Work
+  uploads: Billy Lake Champ.jpg
+- title: hi
+  description: hi
+  tags: hi
+  group: Misc
