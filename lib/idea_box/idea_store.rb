@@ -16,6 +16,15 @@ class IdeaStore
       end
     end
 
+    def get_next_id
+      if idea_data == []
+        1
+      else
+        ids = idea_data.collect { |idea_hash| idea_hash["id"] }
+        ids.sort.last + 1
+      end
+    end
+
     def idea_data
       database.transaction {|db| db["ideas"] || []}
     end
@@ -69,6 +78,12 @@ class IdeaStore
           tag.downcase == search_term.downcase
         end   
       end  
+    end
+
+    def search_group(group)
+      IdeaStore.all.select do |idea|
+        idea.group == group
+      end
     end
 
     def search_description(keyword)

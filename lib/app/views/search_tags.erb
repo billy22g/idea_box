@@ -6,12 +6,18 @@
           <b>Title: </b><%= idea.title %><br>
           <b>Description: </b><%= idea.description %><br>
           <b>Tags: </b><%= idea.tags %><br>
+          <b>Files: </b><%= idea.uploads %><br/>
+          <b>Group: </b><%= idea.group %><br/>
           <form action='/<%= idea.id %>/like' method='POST' style="display: inline">
-            <input type="submit" value="Like!"/>
-          <a href="/<%= idea.id %>/edit">Edit</a>
-          <form action="/<%= idea.id %>" method="POST">
+            <button type='/<%= idea.id %>/like' class="btn btn-primary" style="display: inline">Like!</button>
+            <span class="badge badge-success"><%= idea.votes %></span>
+          </form>
+          <form action='/<%= idea.id %>/edit' method='GET' style="display: inline">
+            <button type='/<%= idea.id %>/edit' class="btn btn-primary" style="display: inline">Edit</button>
+          </form>
+          <form action="/<%= idea.id %>" method="POST" style="display: inline">
             <input type="hidden" name="_method" value="DELETE">
-            <input type="submit" value="delete"/>
+            <button type='/<%= idea.id %>/delete' class="btn btn-primary" style="display: inline">Delete</button>
           </form>
         </li>
       <% end %>

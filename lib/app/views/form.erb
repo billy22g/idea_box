@@ -9,35 +9,50 @@
         <% if idea.id %>
           <input type="hidden" name="_method" value="PUT" />
         <% end %>
-        <h4><input type='text' name='idea[title]' value="<%= idea.title %>"/>Title<br/>
-        <textarea name='idea[description]'><%= idea.description %></textarea>Description<br/>
-        <input name='idea[tags]'><%= idea.tags %>Tags</h4>
+        <h4><input type='text' name='idea[title]' value="<%= idea.title %>"/> Title<br/><br/>
+        <textarea name='idea[description]'><%= idea.description %></textarea> Description<br/><br/>
+        <input type='text' name='idea[tags]' value="<%= idea.tags %>"/> Tags</h4>
       
         <select name="idea[group]">
+          <% if idea.id %>
+            <option selected=<% idea.group %>><%= idea.group %></option>
+          <% end %>
           <option value="Misc">Miscellaneous</option>
           <option value="Travel">Travel</option>
           <option value="Leisure">Leisure</option>
           <option value="Exercise">Exercise</option>
           <option value="Work">Work</option>
-        </select>   
+        </select><br/><br/>  
 
-        <input type='file' accept="audio/*|video/*|image/*" name='uploads' style="display: inline"/><br/>
-        <input type='submit' style="display: inline"/><br/>        
+        <input type='file' accept="audio/*|video/*|image/*" name='uploads' style="display: inline"/><br/><br/>
+        <button type="submit"/ class="btn btn-primary" style="display: inline">Submit</button><br/>       
         <br/>
-      </form>
-      <form action='/search_title' method='GET' style="display: inline">
-        <input type='text' name='search_title'/>
-        <input type="submit" value="Search by Title!"/>        
-      </form>
-      <br/>
-      <form action='/search_description' method='GET' style="display: inline">
-        <input type='text' name='search_description'/>
-        <input type="submit" value="Search by Description!"/>
-      </form>
-      <br/>
-      <form action='/search_tags' method='GET' style="display: inline">
-        <input type='text' name='search_tags'/>
-        <input type="submit" value="Search by Tags!"/>
-      </form>
+      <% unless idea.id %>
+        </form>
+        <form action='/search_title' method='GET' style="display: inline">
+          <input type='text' name='search_title'/>
+          <input type="submit" value="Search by Title!"/>        
+        </form>
+        <br/>
+        <form action='/search_description' method='GET' style="display: inline">
+          <input type='text' name='search_description'/>
+          <input type="submit" value="Search by Description!"/>
+        </form>
+        <br/>
+        <form action='/search_tags' method='GET' style="display: inline">
+          <input type='text' name='search_tags'/>
+          <input type="submit" value="Search by Tags!"/>
+        </form><br/>
+        <form action='/search_group' method='GET' style="display: inline">
+           <select name="search_group">
+            <option value="Misc">Miscellaneous</option>
+            <option value="Travel">Travel</option>
+            <option value="Leisure">Leisure</option>
+            <option value="Exercise">Exercise</option>
+            <option value="Work">Work</option>
+          </select>
+          <input type="submit"  value="Search by Group!"/>
+        </form>
+      <%end%>
       
       

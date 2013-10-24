@@ -124,4 +124,27 @@ class IdeaStoreTest < Minitest::Test
     assert_equal "1, 2, blue heaven", result.first.tags
   end
 
+  def test_it_searches_for_ideas_by_group
+    IdeaStore.create("title" => "Howdy", "tags" => "1, 2, blue heaven", "group" => "Travel")
+    IdeaStore.create("title" => "Heyo", "tags" => "1, five, blue heaven", "group" => "Travel")
+    IdeaStore.create("title" => "Howdy", "tags" => "five, seven", "group" => "Misc")
+    result = IdeaStore.search_group("Travel")
+    assert_equal 2, result.count
+    assert_equal "Howdy", result.first.title
+  end
+
+  def test_it_should_return_an_id
+    assert_equal 1, IdeaStore.get_next_id
+  end
+
+  def test_the_id_returned_should_be_unique
+    IdeaStore.create("title" => "Howdy", "tags" => "1, 2, blue heaven", "group" => "Travel", "id" => 3)
+    IdeaStore.create("title" => "Howdy", "tags" => "1, 2, blue heaven", "group" => "Travel", "id" => 6)
+    IdeaStore.create("title" => "Howdy", "tags" => "1, 2, blue heaven", "group" => "Travel", "id" => 2)
+    assert_equal 7, IdeaStore.get_next_id
+  end
+    # It should return an id
+    # There should be no ideas with the id
+    # The id should be one above the previous id
+
 end

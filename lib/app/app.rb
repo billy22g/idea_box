@@ -13,9 +13,9 @@ class IdeaBoxApp < Sinatra::Base
   end
 
   post '/' do
-    if params['upload']
-      File.open("db/uploads/" + params['uploads'][:filename], "w") do |f|
-        f.write(params['uploads'][:tempfile].read)
+    if params['uploads']
+      File.open("db/uploads/" + params['uploads'][:filename], "w") do |file|
+        file.write(params['uploads'][:tempfile].read)
       end
       IdeaStore.create(params[:idea].merge('uploads' => params['uploads'][:filename]))
     else
@@ -60,6 +60,11 @@ class IdeaBoxApp < Sinatra::Base
   get '/search_title' do
     matching_ideas = IdeaStore.search_title(params[:search_title])
     erb :search_title, locals: {matching_ideas: matching_ideas}
+  end
+
+  get '/search_group' do
+    matching_ideas = IdeaStore.search_group(params[:search_group])
+    erb :search_group, locals: {matching_ideas: matching_ideas}
   end
 
   not_found do

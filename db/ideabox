@@ -3,9 +3,10 @@ ideas:
 - title: hi
   description: hi
   tags: hi
-  group: Work
-  uploads: Billy Lake Champ.jpg
-- title: hi
-  description: hi
-  tags: hi
   group: Misc
+  uploads: Billy Lake Champ.jpg
+- title: ao
+  description: aosdf
+  tags: dsfs
+  group: Misc
+  uploads: rg1308.pdf
